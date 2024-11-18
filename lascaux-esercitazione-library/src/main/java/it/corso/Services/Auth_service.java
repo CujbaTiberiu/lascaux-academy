@@ -67,8 +67,8 @@ public class Auth_service {
 
 	public String signup(UserDto userDto) throws Exception {
 
-		if (!Ur.existsByUsername(userDto.getUsername())) {
-			throw new EntityNotFoundException("User doesn't exist in db!");
+		if (Ur.existsByUsername(userDto.getUsername())) {
+			throw new EntityNotFoundException("User exist in db!");
 		}
 
 		userDto.setPassword(Pe.encode(userDto.getPassword()));
@@ -79,7 +79,7 @@ public class Auth_service {
 		newUser.getRoles().add(userRole);
 		newUser.setRegistrationDate(LocalDate.now());
 
-		this.Ur.save(newUser);
+		Ur.save(newUser);
 		return "User registered successfully";
 	}
 
