@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.*;
@@ -14,12 +15,17 @@ import it.corso.Models.UserDto;
 
 @Component
 public class JwtUtil {
-	private String SECRET_KEY = "S3s1Df4F12aqQ02GRE12P2DWasvfeaQ2edaqfjfasnwnfnw7fg1g2h1b2";
+	
+	@Value("${app.jwt-secret}")
+	private String SECRET_KEY;
+	
+	@Value("${app.jwt-expiration-milliseconds}")
+	private long jwtExpirationDate;
 
 	public String generateToken(String username) {
 		System.out.println("generate token " + username);
 		return Jwts.builder().setSubject(username).setIssuedAt(new Date())
-				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours
+				.setExpiration(new Date(System.currentTimeMillis() + jwtExpirationDate)) // 10 hours
 				.signWith(key()).compact();
 		
 	}

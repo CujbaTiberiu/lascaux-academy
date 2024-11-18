@@ -24,12 +24,6 @@ import it.corso.Services.User_service;
 public class SecurityConfig {
 
 	@Autowired
-	private User_service Us;
-
-	@Autowired
-	private JwtUtil jwtUtil;
-	
-	@Autowired
 	private JwtFilter jwtFilter;
 	
 	@Autowired

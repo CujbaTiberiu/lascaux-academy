@@ -2,21 +2,31 @@ package it.corso.Services;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.GrantedAuthority;
 
+import it.corso.Entities.Role;
 import it.corso.Entities.User;
+import it.corso.Models.UserAuthDto;
 import it.corso.Models.UserDto;
+import it.corso.Repositories.Role_repo;
 import it.corso.Repositories.User_repo;
+import it.corso.Services.mappers.LoanMapper;
+import it.corso.Services.mappers.ReviewMapper;
 import it.corso.Services.mappers.UserMapper;
+import it.corso.config.JwtUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
@@ -30,42 +40,26 @@ public class User_service {
 	private User_repo Ur;
 
 	@Autowired
-	private UserMapper um;
+	private UserMapper Um;
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
-//	public User_service(UserMapper um) {
-//		super();
-//		this.um = um;
-//	}
-//
-//	@Transactional
-//	public UserDto insertUser(UserDto ud) {
-//		User user = new User();
-//		user.setName(ud.getName());
-//		user.setSurname(ud.getSurname());
-//		user.setRegistrationDate(ud.getRegistrationDate());
-//		Ur.save(user);
-//		return ud;
-//
-//	}
-//
 	@Transactional
 	public UserDto insertUser(UserDto ud) {
-		User user = um.toUser(ud);
+		User user = Um.toUser(ud);
 		User savedUser = Ur.save(user);
-		return um.toUserDto(savedUser);
+		return Um.toUserDto(savedUser);
 	}
-	
+
 	@Transactional
 	public UserDto insertNewUser(User user) {
 		User savedUser = Ur.save(user);
-		return um.toUserDto(savedUser);
+		return Um.toUserDto(savedUser);
 	}
 
 	public UserDto getLoansWithBooksAndReviewsByUserId(Long userId) throws Exception {
-		UserDto userDto = Ur.findById(userId).map(um::toUserDto)
+		UserDto userDto = Ur.findById(userId).map(Um::toUserDto)
 				.orElseThrow(() -> new EntityNotFoundException("User non esite in db!"));
 
 		// User user = um.toUser(userDto);
@@ -84,7 +78,7 @@ public class User_service {
 		query.setParameter("numberOfLoans", numberOfLoans);
 
 		List<User> users = query.getResultList();
-		List<UserDto> usersDto = users.stream().map(um::toUserDto).toList();
+		List<UserDto> usersDto = users.stream().map(Um::toUserDto).toList();
 
 		return usersDto;
 	}
@@ -97,19 +91,9 @@ public class User_service {
 		query.setMaxResults(3);
 
 		List<User> users = query.getResultList();
-		List<UserDto> usersDto = users.stream().map(um::toUserDto).toList();
+		List<UserDto> usersDto = users.stream().map(Um::toUserDto).toList();
 
 		return usersDto;
-	}
-
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = Ur.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-		Set<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getCode())).collect(Collectors.toSet());
-
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				authorities);
 	}
 
 }

@@ -3,6 +3,7 @@ package it.corso.config;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import io.micrometer.common.util.StringUtils;
 import it.corso.Entities.User;
 import it.corso.Repositories.User_repo;
+import it.corso.Services.Auth_service;
 import it.corso.Services.User_service;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,9 +24,12 @@ import jakarta.servlet.http.HttpServletResponse;
 public class JwtFilter extends OncePerRequestFilter {
 	
 	@Autowired
+	@Lazy
 	private JwtUtil jwt;
+	
 	@Autowired
-	private User_service userService;
+	@Lazy
+	private Auth_service authService;
 	
 
 	@Override
@@ -47,7 +52,7 @@ public class JwtFilter extends OncePerRequestFilter {
     	System.out.println("filter " + username);
 
 		if (StringUtils.isNotEmpty(username) && jwt.validateToken(token)) {
-			UserDetails user = userService.loadUserByUsername(username);
+			UserDetails user = authService.loadUserByUsername(username);
 
 			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null,
 					user.getAuthorities());
