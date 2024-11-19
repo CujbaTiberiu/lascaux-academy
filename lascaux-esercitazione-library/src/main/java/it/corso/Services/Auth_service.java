@@ -97,6 +97,7 @@ public class Auth_service {
 			loginRequest.setName(user.getName());
 			loginRequest.setSurname(user.getSurname());
 			loginRequest.setToken(token);
+			loginRequest.setPassword(null);
 			loginRequest.setRole(role.getCode());
 			loginRequest.setTokenExpireDate(new Date(System.currentTimeMillis() + jwtExpirationDate));
 			loginRequest.setLoans(user.getLoans().stream().map(Lm::loanToLoanDto).toList());
