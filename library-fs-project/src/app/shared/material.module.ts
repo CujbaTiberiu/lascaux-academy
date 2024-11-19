@@ -9,6 +9,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 
@@ -24,7 +25,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatBadgeModule,
     MatCardModule,
     MatDialogModule,
-
+    MatFormFieldModule
   ],
   exports: [
     MatIconModule,
@@ -36,6 +37,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatBadgeModule,
     MatCardModule,
     MatDialogModule,
+    MatFormFieldModule
   ]
 })
 export class MaterialModule { }

@@ -1,1 +1,19 @@
-<p>login works!</p>
+<form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+
+  <mat-form-field class="input">
+    <mat-label>Username</mat-label>
+    <input type="text" matInput formControlName="username" >
+    <mat-error *ngIf="username.invalid">Please enter a valid username</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="input">
+    <mat-label>Password</mat-label>
+    <input type="text" matInput formControlName="password" >
+    <mat-error *ngIf="password.invalid">Please enter a valid name, min 6 characters</mat-error>
+  </mat-form-field>
+
+  <button mat-fab extended [disabled]="!loginForm.valid">
+    <mat-icon>send</mat-icon>
+    Login
+  </button>
+</form>

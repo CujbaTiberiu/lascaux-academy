@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {SharedModule} from './shared/shared.module';
 import {provideHttpClient} from '@angular/common/http';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {provideHttpClient} from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
+    ReactiveFormsModule,
   ],
   providers: [
     provideAnimationsAsync(),
