@@ -16,7 +16,7 @@ import it.corso.Services.Book_service;
 
 @RestController
 @RequestMapping("/book")
-@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins = "*", maxAge = 3600)
 public class Book_controller {
 
 	@Autowired

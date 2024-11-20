@@ -16,7 +16,7 @@ import it.corso.Services.Loan_service;
 //@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RestController
 @RequestMapping("/loan")
-@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins = "*", maxAge = 3600)
 public class Loan_controller {
 
 	@Autowired

@@ -15,7 +15,7 @@ import it.corso.Services.Review_service;
 
 @RestController
 @RequestMapping("/review")
-@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins = "*", maxAge = 3600)
 public class Review_controller {
 
 	@Autowired

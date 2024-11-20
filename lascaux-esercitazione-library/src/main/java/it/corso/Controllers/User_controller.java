@@ -18,7 +18,7 @@ import it.corso.Services.User_service;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins = "*", maxAge = 3600)
 public class User_controller {
 
 	@Autowired
