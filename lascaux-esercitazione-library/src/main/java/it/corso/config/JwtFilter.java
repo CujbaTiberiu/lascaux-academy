@@ -40,7 +40,7 @@ public class JwtFilter extends OncePerRequestFilter {
 	    String requestURI = request.getRequestURI();
 
 	    // Se l'URI corrisponde a un endpoint pubblico, salta il filtro
-	    if (requestURI.startsWith("/auth")) {
+	    if (requestURI.equals("/auth")) {
 	        filterChain.doFilter(request, response);
 	        return;
 	    }
