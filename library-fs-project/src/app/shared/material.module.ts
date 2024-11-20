@@ -10,6 +10,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 
@@ -25,7 +26,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatBadgeModule,
     MatCardModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTabsModule
   ],
   exports: [
     MatIconModule,
@@ -37,7 +39,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatBadgeModule,
     MatCardModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTabsModule
   ]
 })
 export class MaterialModule { }
