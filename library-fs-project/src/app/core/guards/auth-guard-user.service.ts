@@ -12,7 +12,7 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuardAdminService implements CanActivate {
+export class AuthGuardUserService implements CanActivate {
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -24,7 +24,7 @@ export class AuthGuardAdminService implements CanActivate {
   ): MaybeAsync<GuardResult> {
     if (
       !this.authService.isTokenExpired &&
-      this.authService.role === 'ROLE_ADMIN'
+      this.authService.role === 'ROLE_USER'
     ) {
       return true;
     } else {

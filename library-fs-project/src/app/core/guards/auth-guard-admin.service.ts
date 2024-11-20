@@ -23,9 +23,8 @@ export class AuthGuardAdminService implements CanActivate {
     state: RouterStateSnapshot,
   ): MaybeAsync<GuardResult> {
     if (
-      this.authService.isAuthenticated &&
       !this.authService.isTokenExpired &&
-      this.authService.userRole === 'ROLE_ADMIN'
+      this.authService.role === 'ROLE_ADMIN'
     ) {
       return true;
     } else {
