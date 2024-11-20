@@ -7,7 +7,5 @@ export interface User {
   surname: string,
   token: string,
   tokenExpireDate: Date,
-  roles: string,
-  loans: Loan[],
-  reviews: Review[]
+  role: string
 }
