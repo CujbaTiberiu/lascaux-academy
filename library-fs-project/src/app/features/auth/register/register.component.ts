@@ -15,7 +15,7 @@ registerForm = this.#formBuilder.group({
   name: ['', [Validators.required, Validators.minLength(4)]],
   surname: ['', Validators.required],
   username: ['', Validators.required],
-  password: ['', [Validators.required,Validators.minLength(6)]],
+  password: ['', [Validators.required,Validators.minLength(5)]],
 });
 
 get name(){
