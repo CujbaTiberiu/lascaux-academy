@@ -23,8 +23,6 @@ public class UserAuthDto {
 	private String surname;
 	
 	private String username;
-
-	private String password;
 	
 	private String token;
 
@@ -32,8 +30,4 @@ public class UserAuthDto {
 	
 	private String role;
 	
-	private List<LoanDto> loans;
-	
-	private List<ReviewDto> reviews;
-
 }

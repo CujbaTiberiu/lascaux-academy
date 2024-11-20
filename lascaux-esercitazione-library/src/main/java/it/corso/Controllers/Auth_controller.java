@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.corso.Entities.Role;
 import it.corso.Entities.User;
+import it.corso.Models.LoginDto;
 import it.corso.Models.UserAuthDto;
 import it.corso.Models.UserDto;
 import it.corso.Repositories.Role_repo;
@@ -47,7 +48,7 @@ public class Auth_controller {
 	}
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> signin(@RequestBody UserAuthDto loginRequest) throws Exception {
+	public ResponseEntity<?> signin(@RequestBody LoginDto loginRequest) throws Exception {
 		try {
 			return ResponseEntity.ok(As.signin(loginRequest));
 		} catch (Exception e) {

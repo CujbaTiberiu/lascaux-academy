@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import it.corso.Entities.Role;
 import it.corso.Entities.User;
+import it.corso.Models.LoginDto;
 import it.corso.Models.UserAuthDto;
 import it.corso.Models.UserDto;
 import it.corso.Repositories.Role_repo;
@@ -83,26 +84,27 @@ public class Auth_service {
 		return "User registered successfully";
 	}
 
-	public UserAuthDto signin(UserAuthDto loginRequest) throws Exception {
+	public UserAuthDto signin(LoginDto loginRequest) throws Exception {
 
 		User user = Ur.findByUsername(loginRequest.getUsername())
 				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
 		Role role = user.getRoles().iterator().next();
+		
+		UserAuthDto responseDto = new UserAuthDto();
 
 		if (Pe.matches(loginRequest.getPassword(), user.getPassword())) {
 
 			String token = Jwt.generateToken(user.getUsername());
-			loginRequest.setId(user.getId());
-			loginRequest.setName(user.getName());
-			loginRequest.setSurname(user.getSurname());
-			loginRequest.setToken(token);
-			loginRequest.setRole(role.getCode());
-			loginRequest.setTokenExpireDate(new Date(System.currentTimeMillis() + jwtExpirationDate));
-			loginRequest.setLoans(user.getLoans().stream().map(Lm::loanToLoanDto).toList());
-			loginRequest.setReviews(user.getReviews().stream().map(Rm::toReviewDto).toList());
+			responseDto.setId(user.getId());
+			responseDto.setName(user.getName());
+			responseDto.setSurname(user.getSurname());
+			responseDto.setUsername(user.getUsername());
+			responseDto.setToken(token);
+			responseDto.setRole(role.getCode());
+			responseDto.setTokenExpireDate(new Date(System.currentTimeMillis() + jwtExpirationDate));
 
-			return loginRequest;
+			return responseDto;
 		} else {
 			return null;
 		}
