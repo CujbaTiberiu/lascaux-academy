@@ -21,12 +21,31 @@ role : string = "";
 isTokenExpired: boolean = true;
 
   constructor() {
-
+    let user: User | null = this.getUser();
+    if(user){
+      this.role = user.role;
+      this.isTokenExpired = this.checkTokenExpired(user.tokenExpireDate);
+      if(this.role === "ROLE_ADMIN" && !this.isTokenExpired){
+        this.#router.navigate(["/main/admin"])
+      } else{
+        this.#router.navigate(["/main/user"])
+      }
+    } else {
+      this.logout();
+   }
   }
 
   saveUser(user : User) : void {
     localStorage.setItem('user', JSON.stringify(user));
     this.#user.next(user);
+  }
+
+  getUser(){
+    let user = localStorage.getItem('user');
+    if(user){
+      return JSON.parse(user);
+    }
+    return null;
   }
 
   logout(){
