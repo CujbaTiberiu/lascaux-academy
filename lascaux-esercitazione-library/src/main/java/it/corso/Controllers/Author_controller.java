@@ -16,7 +16,7 @@ import it.corso.Models.AuthorForBookDto;
 import it.corso.Services.Author_service;
 
 @RestController
-@RequestMapping("/author")
+@RequestMapping("/writer")
 //@CrossOrigin(origins = "*", maxAge = 3600)
 public class Author_controller {
 

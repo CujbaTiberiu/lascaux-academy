@@ -45,7 +45,7 @@ public class SecurityConfig {
 				.requestMatchers("/loan","/loan/**").authenticated()
 				.requestMatchers("/review","/review/**").authenticated()
 				.requestMatchers("/user","/user/**").authenticated()
-				.requestMatchers("/author","/author/**").authenticated())
+				.requestMatchers("/writer","/writer/**").authenticated())
 				.exceptionHandling(exception -> exception
                  .authenticationEntryPoint(jwtAuthEntryPoint))
 			     .sessionManagement( session -> session
