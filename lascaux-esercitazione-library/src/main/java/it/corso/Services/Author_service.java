@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import it.corso.Entities.Author;
 import it.corso.Models.AuthorDto;
+import it.corso.Models.AuthorForBookDto;
 import it.corso.Models.BookForAuthorDto;
 import it.corso.Models.ReviewForUserDto;
 import it.corso.Repositories.Author_repo;
@@ -29,17 +30,14 @@ public class Author_service {
 	@Autowired
 	private AuthorMapper Am;
 
-	@Autowired
-	private BookMapper Bm;
-	
 	@PersistenceContext
 	EntityManager entityManager;
 
 	@Transactional
-	public AuthorDto insertAuthor(AuthorDto authorDto) {
-		Author author = Am.toAuthor(authorDto);
+	public AuthorForBookDto insertAuthor(AuthorForBookDto authorDto) throws Exception {
+		Author author = Am.toAuthorFromAuthorForBookDto(authorDto);
 		Author savedAuthor = Ar.save(author);
-		return Am.toAuthorDto(savedAuthor);
+		return Am.toAuthorForBookDto(savedAuthor);
 	}
 
 	public AuthorDto getAuthorDetails(Long authorId) throws Exception {

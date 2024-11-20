@@ -14,4 +14,6 @@ public interface AuthorMapper {
 	AuthorDto toAuthorDto(Author author);
 	
 	AuthorForBookDto toAuthorForBookDto(Author author);
+	
+	Author toAuthorFromAuthorForBookDto(AuthorForBookDto authorDto);
 }
