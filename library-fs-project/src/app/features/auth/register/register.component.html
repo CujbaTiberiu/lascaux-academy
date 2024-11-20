@@ -1,4 +1,4 @@
-<form class="register-form" [formGroup]="registerForm" (ngSubmit)="signup()">
+<form class="register-form" [formGroup]="registerForm">
   <mat-form-field class="input">
     <mat-label>Name</mat-label>
     <input type="text" matInput formControlName="name" >
@@ -19,10 +19,19 @@
 
       <mat-form-field class="input">
       <mat-label>Password</mat-label>
-    <input type="text" matInput formControlName="password" >
+    <input type="text" matInput [type]="hide() ? 'password' : 'text'" formControlName="password" >
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="clickEvent($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide()"
+        >
+          <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
     <mat-error *ngIf="password.invalid">Please enter a valid name, min 6 characters</mat-error>
       </mat-form-field>
-  <button mat-fab extended [disabled]="!registerForm.valid">
+  <button mat-fab extended [disabled]="!registerForm.valid" (click)="signup()">
     <mat-icon>send</mat-icon>
     Register
   </button>

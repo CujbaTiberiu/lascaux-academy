@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../core/services/auth.service';
 import {Login} from '../../../core/models/login';
@@ -6,7 +6,8 @@ import {Login} from '../../../core/models/login';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   #formBuilder = inject(FormBuilder);
@@ -15,6 +16,7 @@ export class LoginComponent {
     username: ['', [Validators.required, Validators.minLength(3)]],
     password: ['', [Validators.required, Validators.minLength(5)]],
   })
+  hide = signal(true);
 
   get password(){
     return this.loginForm.controls['password'];
@@ -26,5 +28,10 @@ export class LoginComponent {
 
   login(){
   this.#authService.login(this.loginForm.value as Login)
+  }
+
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
   }
 }

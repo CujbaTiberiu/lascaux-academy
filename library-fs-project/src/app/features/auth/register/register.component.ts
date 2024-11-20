@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../core/services/auth.service';
 import {Register} from '../../../core/models/register';
@@ -6,7 +6,9 @@ import {Register} from '../../../core/models/register';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class RegisterComponent {
 #formBuilder = inject(FormBuilder);
@@ -17,6 +19,7 @@ registerForm = this.#formBuilder.group({
   username: ['', Validators.required],
   password: ['', [Validators.required,Validators.minLength(5)]],
 });
+  hide = signal(true);
 
 get name(){
   return this.registerForm.controls['name'];
@@ -39,5 +42,10 @@ signup(){
   this.#authService.register(this.registerForm.value as Register);
   }
 }
+
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
 
 }
