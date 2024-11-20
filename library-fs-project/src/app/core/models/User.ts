@@ -6,6 +6,6 @@ export interface User {
   name: string,
   surname: string,
   token: string,
-  tokenExpireDate: Date,
+  tokenExpireDate: number,
   role: string
 }

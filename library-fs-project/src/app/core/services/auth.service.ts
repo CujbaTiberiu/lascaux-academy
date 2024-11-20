@@ -17,8 +17,12 @@ export class AuthService {
 #router : Router = inject(Router);
 #user: BehaviorSubject<User | null> = new BehaviorSubject<User | null> (null);
 userObserver$ = from(this.#user);
+role : string = "";
+isTokenExpired: boolean = true;
 
-  constructor() { }
+  constructor() {
+
+  }
 
   saveUser(user : User) : void {
     localStorage.setItem('user', JSON.stringify(user));
@@ -28,6 +32,11 @@ userObserver$ = from(this.#user);
   logout(){
     localStorage.clear();
     this.#user.next(null);
+  }
+
+  checkTokenExpired(tokenExpireDate: number){
+    let today = new Date();
+    return today.getTime() > tokenExpireDate;
   }
 
   register(registerData : Register){
@@ -54,14 +63,17 @@ userObserver$ = from(this.#user);
         let user: User = data;
         console.log(data);
         this.saveUser(user);
+        this.role = user.role;
+        this.isTokenExpired = this.checkTokenExpired(user.tokenExpireDate);
         this.#snackbarService.openSuccessSnackbar(
           "Logged in successfully",
         );
         if(user.role === "ROLE_ADMIN"){
-          this.#router.navigate(["main/admin"])
+          this.#router.navigate(["/main/admin"])
         } else {
-          this.#router.navigate(["main/user"])
+          this.#router.navigate(["/main/user"])
         }
+        console.log(this.role, this.isTokenExpired);
       },
       error: (error) => {
         console.log(error);

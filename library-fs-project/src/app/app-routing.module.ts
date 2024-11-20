@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: 'auth/register'
-  // },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'main/admin'
+  },
   {
     path: 'auth',
   loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule),
