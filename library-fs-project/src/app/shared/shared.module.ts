@@ -4,12 +4,14 @@ import {MaterialModule} from './material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import {RouterLink} from '@angular/router';
+import { BooksTableComponent } from './components/books-table/books-table.component';
 
 
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    BooksTableComponent
   ],
   imports: [
     CommonModule,
@@ -17,6 +19,6 @@ import {RouterLink} from '@angular/router';
     ReactiveFormsModule,
     RouterLink,
   ],
-  exports: [MaterialModule, NavbarComponent]
+  exports: [MaterialModule, NavbarComponent, BooksTableComponent]
 })
 export class SharedModule { }

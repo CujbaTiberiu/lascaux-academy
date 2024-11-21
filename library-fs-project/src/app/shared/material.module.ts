@@ -11,6 +11,9 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 
@@ -27,7 +30,10 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatCardModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   exports: [
     MatIconModule,
@@ -40,7 +46,10 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatCardModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ]
 })
 export class MaterialModule { }
