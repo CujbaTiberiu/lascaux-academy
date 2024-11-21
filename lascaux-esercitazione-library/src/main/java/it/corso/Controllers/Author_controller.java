@@ -32,7 +32,7 @@ public class Author_controller {
 		}
 	}
 
-	@GetMapping("/authorId={id}")
+	@GetMapping("/writerId={id}")
 	public ResponseEntity<?> getAuthorWithDetailsById(@PathVariable Long id) {
 		try {
 			return ResponseEntity.ok(As.getAuthorDetails(id));

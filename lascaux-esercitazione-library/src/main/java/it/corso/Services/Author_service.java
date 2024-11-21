@@ -47,21 +47,23 @@ public class Author_service {
 		List<BookForAuthorDto> bDto = authorDto.getBooks();
 		List<Long> listVotes = new ArrayList<>();
 
-		int total = 0;
+		if(bDto.size() >= 1 && listVotes.size() >= 1) {
+			int total = 0;
 
-		for (BookForAuthorDto book : bDto) {
-			for (ReviewForUserDto review : book.getReviews()) {
-				listVotes.add(review.getVote());
+			for (BookForAuthorDto book : bDto) {
+				for (ReviewForUserDto review : book.getReviews()) {
+					listVotes.add(review.getVote());
+				}
 			}
+			for (Long vote : listVotes) {
+				total += vote;
+			}
+
+			int avg = total / listVotes.size();
+
+			authorDto.setVoteAvg(avg);
 		}
-		for (Long vote : listVotes) {
-			total += vote;
-		}
-
-		int avg = total / listVotes.size();
-
-		authorDto.setVoteAvg(avg);
-
+		
 		return authorDto;
 	}
 	
