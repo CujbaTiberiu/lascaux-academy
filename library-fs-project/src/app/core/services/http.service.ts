@@ -2,6 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Login} from '../models/login';
 import {Register} from '../models/register';
+import {Book} from '../models/Book';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,9 @@ headers = new HttpHeaders({ 'Content-Type': 'application/json' });
       {
         headers: this.headers,
       })
+  }
+
+  getAllBooks(){
+    return this.#http.get<Book[]>(`${this.baseUrl}/book`)
   }
 }
