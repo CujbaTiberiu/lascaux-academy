@@ -16,7 +16,7 @@ public class BookForCategoryDto {
 
 	private String title;
 
-	private LocalDate pubblicationDate;
+	private LocalDate publicationDate;
 
 	private List<String> categories;
 	

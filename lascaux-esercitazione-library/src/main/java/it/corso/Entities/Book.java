@@ -43,8 +43,8 @@ public class Book {
 	private String title;
 
 	@NonNull
-	@Column(name = "pubblication_date")
-	private LocalDate pubblicationDate;
+	@Column(name = "publication_date")
+	private LocalDate publicationDate;
 
 	private long copies;
 
