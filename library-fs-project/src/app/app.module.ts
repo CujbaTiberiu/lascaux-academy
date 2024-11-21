@@ -5,8 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {SharedModule} from './shared/shared.module';
-import {provideHttpClient} from '@angular/common/http';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
+import {authInterceptor} from './core/services/authInterceptor';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import {ReactiveFormsModule} from '@angular/forms';
   ],
   providers: [
     provideAnimationsAsync(),
-    provideHttpClient()
+    provideHttpClient(
+      withInterceptors([authInterceptor]),
+    )
   ],
   bootstrap: [AppComponent]
 })
