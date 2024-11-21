@@ -19,12 +19,14 @@ export class AuthService {
 userObserver$ = from(this.#user);
 role : string = "";
 isTokenExpired: boolean = true;
+token : string = "";
 
   constructor() {
     let user: User | null = this.getUser();
     if(user){
       this.role = user.role;
       this.isTokenExpired = this.checkTokenExpired(user.tokenExpireDate);
+      this.token = user.token
       if(this.role === "ROLE_ADMIN" && !this.isTokenExpired){
         this.#router.navigate(["/main/admin"])
       } else{
@@ -84,6 +86,7 @@ isTokenExpired: boolean = true;
         this.saveUser(user);
         this.role = user.role;
         this.isTokenExpired = this.checkTokenExpired(user.tokenExpireDate);
+        this.token = user.token
         this.#snackbarService.openSuccessSnackbar(
           "Logged in successfully",
         );
